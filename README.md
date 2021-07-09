@@ -1,6 +1,6 @@
 # 项目初始化设置
 
-```python
+```sh
 # 格式化工具prettier
 yarn add --dev --exact prettier
 # prettier配置文件
@@ -13,4 +13,7 @@ npx mrm lint-staged
 yarn add eslint-config-prettier -D
 # commitlint 规范提交
 yarn add @commitlint/config-conventional @commitlint/cli -D
+npx husky add .husky/commit-msg "yarn commitlint --edit $1"
+#数据Mock
+yarn add json-server -D
 ```
