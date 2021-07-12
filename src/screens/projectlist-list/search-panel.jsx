@@ -1,5 +1,6 @@
 //import { useEffect, useState } from 'react';
 export const SearchPanel = ({ param, setParam, user }) => {
+  console.log('render SearchPanel');
   return (
     <form action="">
       <div>

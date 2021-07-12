@@ -1,4 +1,5 @@
 export const List = ({ list, user }) => {
+  console.log('render List');
   return (
     <table>
       <thead>
