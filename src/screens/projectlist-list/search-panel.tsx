@@ -1,5 +1,18 @@
-//import { useEffect, useState } from 'react';
-export const SearchPanel = ({ param, setParam, user }) => {
+import { FC, ReactElement } from 'react';
+import { User } from '../../types';
+export interface IProps {
+  user: User[];
+  param: {
+    name: string;
+    personId: string;
+  };
+  setParam: (param: IProps['param']) => void;
+}
+export const SearchPanel: FC<IProps> = ({
+  user,
+  param,
+  setParam,
+}): ReactElement => {
   console.log('render SearchPanel');
   return (
     <form action="">
@@ -15,7 +28,7 @@ export const SearchPanel = ({ param, setParam, user }) => {
           }
         />
         <select
-          val={param.personId}
+          value={param.personId}
           onChange={(ev) =>
             setParam({
               ...param,
@@ -24,7 +37,7 @@ export const SearchPanel = ({ param, setParam, user }) => {
           }
         >
           <option value={''}>负责人</option>
-          {user.map((user) => (
+          {user.map((user: User) => (
             <option key={user.id} value={user.id}>
               {user.name}
             </option>

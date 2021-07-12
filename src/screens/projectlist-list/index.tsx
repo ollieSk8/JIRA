@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement, FC } from 'react';
 import { List } from './list';
 import { SearchPanel } from './search-panel';
 import qs from 'qs';
 import { cleanObject } from '../../utils';
 import { useMount, useDebounce } from '../../utils';
 const apiUrl = process.env.REACT_APP_API_URL;
-export const ProjectListScreen = () => {
+export const ProjectListScreen: FC = (): ReactElement => {
   console.log('render ProjectListScreen');
   const [param, setParam] = useState({
     name: '',
@@ -13,7 +13,7 @@ export const ProjectListScreen = () => {
   });
   const [list, setList] = useState([]);
   const [user, setUser] = useState([]);
-  const debouncedParam = useDebounce(param, 2000);
+  const debouncedParam = useDebounce(param, 1000);
   useMount(() => {
     fetch(`${apiUrl}/users`).then(async (res) => {
       if (res.ok) {
