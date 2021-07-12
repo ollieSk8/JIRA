@@ -23,14 +23,14 @@ export const ProjectListScreen: FC = (): ReactElement => {
     });
   });
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(
-      async (res) => {
-        if (res.ok) {
-          let data = await res.json();
-          setList(data);
-        }
+    fetch(
+      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
+    ).then(async (res) => {
+      if (res.ok) {
+        let data = await res.json();
+        setList(data);
       }
-    );
+    });
     // eslint-disable-next-line
   }, [debouncedParam]);
   return (
