@@ -1,10 +1,9 @@
 import { ReactElement } from 'react';
-// import { ProjectListScreen } from './screens/projectlist-list';
-import { TsReactTest } from './screens/projectlist-list/try-use-array';
+import { LoginScreen } from 'screens/login';
 function App(): ReactElement {
   return (
     <div className="App">
-      <TsReactTest />
+      <LoginScreen />
     </div>
   );
 }

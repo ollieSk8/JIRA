@@ -55,3 +55,8 @@ export const useArray = <T>(args: T[]) => {
 
   return { value, clear, removeIndex, add };
 };
+export const useToggle = (initialValue: boolean): [boolean, () => void] => {
+  const [value, setValue] = useState(initialValue);
+  const toggleValue = () => setValue(!value);
+  return [value, toggleValue];
+};
