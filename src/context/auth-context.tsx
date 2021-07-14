@@ -5,15 +5,15 @@ interface AuthForm {
   username: string;
   password: string;
 }
-const AuthContext = React.createContext<
-  | [
-      user: User | null,
-      login: (form: AuthForm) => Promise<void>,
-      register: (form: AuthForm) => Promise<void>,
-      logout: () => Promise<void>
-    ]
-  | undefined
->(undefined);
+interface AuthContextProps {
+  user: User | null;
+  login: (form: AuthForm) => Promise<void>;
+  register: (form: AuthForm) => Promise<void>;
+  logout: () => Promise<void>;
+}
+const AuthContext = React.createContext<AuthContextProps | undefined>(
+  undefined
+);
 AuthContext.displayName = 'AuthContext';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => auth.logout().then(() => setUser(null));
   return (
     <AuthContext.Provider
-      value={[user, login, register, logout]}
+      value={{ user, login, register, logout }}
       children={children}
     />
   );
