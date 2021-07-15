@@ -1,5 +1,7 @@
+import { Input, Select } from 'antd';
 import { FC, ReactElement } from 'react';
 import { User } from '../../types';
+const { Option } = Select;
 export interface IProps {
   user: User[];
   param: {
@@ -15,10 +17,11 @@ export const SearchPanel: FC<IProps> = ({
 }): ReactElement => {
   console.log('render SearchPanel');
   return (
-    <form action="">
-      <div>
-        <input
-          type="text"
+    <>
+      <Input.Group compact>
+        <Input
+          style={{ width: '50%' }}
+          placeholder="Basic usage"
           value={param.name}
           onChange={(ev) =>
             setParam({
@@ -27,23 +30,21 @@ export const SearchPanel: FC<IProps> = ({
             })
           }
         />
-        <select
+        <Select
           value={param.personId}
-          onChange={(ev) =>
+          style={{ width: 120 }}
+          onChange={(value) =>
             setParam({
               ...param,
-              personId: ev.target.value,
+              personId: value,
             })
           }
         >
-          <option value={''}>负责人</option>
-          {user.map((user: User) => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
+          {user.map((item) => (
+            <Option value={item.id}>{item.name}</Option>
           ))}
-        </select>
-      </div>
-    </form>
+        </Select>
+      </Input.Group>
+    </>
   );
 };

@@ -1,3 +1,4 @@
+import { Table } from 'antd';
 import { FC, ReactElement } from 'react';
 import { projects, User } from '../../types';
 interface IProps {
@@ -5,28 +6,26 @@ interface IProps {
   user: User[];
 }
 export const List: FC<IProps> = ({ list, user }): ReactElement => {
-  console.log('render List');
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>负责人</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((project) => (
-          <tr key={project.id}>
-            <td>{project.name}</td>
-            <td>
-              {
-                user.find((user: { id: any }) => user.id === project.personId)
-                  ?.name
-              }
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <Table
+      dataSource={list}
+      columns={[
+        {
+          title: '名称',
+          dataIndex: 'name',
+          sorter: (a, b) => {
+            return a.name.localeCompare(b.name);
+          },
+        },
+        {
+          title: '负责人',
+          render(project) {
+            return user.find(
+              (user: { id: any }) => user.id === project.personId
+            )?.name;
+          },
+        },
+      ]}
+    />
   );
 };

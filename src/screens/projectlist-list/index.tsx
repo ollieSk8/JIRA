@@ -11,7 +11,7 @@ export const ProjectListScreen: FC = (): ReactElement => {
   });
   const [list, setList] = useState([]);
   const [user, setUser] = useState([]);
-  const debouncedParam = useDebounce(param, 1000);
+  const debouncedParam = useDebounce(param, 300);
   const client = useHttp();
   useMount(() => {
     client('users').then(setUser);

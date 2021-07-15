@@ -4,11 +4,7 @@ import { AuthenticatedApp } from './authenticated-app';
 import { UnAuthenticatedApp } from './unauthenticated-app';
 function App(): ReactElement {
   const { user } = useAuth();
-  return (
-    <div className="App">
-      {user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
-    </div>
-  );
+  return <div>{user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}</div>;
 }
 
 export default App;

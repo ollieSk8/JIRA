@@ -1,32 +1,44 @@
+import { Button, Form, Input } from 'antd';
+import { Content } from 'antd/lib/layout/layout';
 import { useAuth } from 'context/auth-context';
-import { FC, FormEvent, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 
 interface IProps {}
 export const LoginScreen: FC<IProps> = (): ReactElement => {
   const { login } = useAuth();
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const username = (event.currentTarget.elements[0] as HTMLInputElement)
-      .value;
-    const password = (event.currentTarget.elements[1] as HTMLInputElement)
-      .value;
-    login({ username, password });
+  const handleSubmit = (values: { username: string; password: string }) => {
+    login(values);
   };
   return (
     <>
-      <div style={{ width: '800px', margin: '0 auto' }}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor={'username'}>用户名</label>
-            <input type="text" id={'username'} />
-          </div>
-          <div>
-            <label htmlFor={'password'}>密码</label>
-            <input type="password" id={'password'} />
-          </div>
-          <button type={'submit'}>登录</button>
-        </form>
-      </div>
+      <Content style={{ padding: '20px 50px 0 50px' }}>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            label="用户名"
+            name="username"
+            rules={[{ required: true, message: '请输入用户名' }]}
+          >
+            <Input placeholder="请输入用户名" id={'username'} />
+          </Form.Item>
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[{ required: true, message: '请输入密码' }]}
+          >
+            <Input.Password placeholder="请输入密码" id={'password'} />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 8 }}>
+            <Button type="primary" htmlType="submit">
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
+      </Content>
     </>
   );
 };
