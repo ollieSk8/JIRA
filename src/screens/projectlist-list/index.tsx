@@ -2,8 +2,8 @@ import { useState, useEffect, ReactElement, FC } from 'react';
 import { List } from './list';
 import { SearchPanel } from './search-panel';
 import { cleanObject } from '../../utils';
-import { useMount, useDebounce } from '../../utils';
 import { useHttp } from 'utils/http';
+import { useDebounce, useMount } from 'ahooks';
 export const ProjectListScreen: FC = (): ReactElement => {
   const [param, setParam] = useState({
     name: '',
@@ -11,7 +11,7 @@ export const ProjectListScreen: FC = (): ReactElement => {
   });
   const [list, setList] = useState([]);
   const [user, setUser] = useState([]);
-  const debouncedParam = useDebounce(param, 300);
+  const debouncedParam = useDebounce(param, { wait: 300 });
   const client = useHttp();
   useMount(() => {
     client('users').then(setUser);

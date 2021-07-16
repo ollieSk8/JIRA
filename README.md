@@ -18,4 +18,6 @@ yarn add @commitlint/config-conventional @commitlint/cli -D
 npx husky add .husky/commit-msg "yarn commitlint --edit $1"
 #数据Mock
 yarn add json-server -D
+#技术栈
+react emotion antd ahooks
 ```
