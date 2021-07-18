@@ -1,16 +1,15 @@
-import { Table } from 'antd';
+import { Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import { FC, ReactElement } from 'react';
 import { projects, User } from '../../types';
-interface IProps {
-  list: projects[];
+interface IProps extends TableProps<projects> {
   user: User[];
 }
-export const List: FC<IProps> = ({ list, user }): ReactElement => {
+export const List: FC<IProps> = ({ user, ...props }): ReactElement => {
   return (
     <Table
       rowKey={'id'}
-      dataSource={list}
+      {...props}
       columns={[
         {
           title: '名称',

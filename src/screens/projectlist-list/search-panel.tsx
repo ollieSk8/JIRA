@@ -1,4 +1,4 @@
-import { Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { FC, ReactElement } from 'react';
 import { User } from '../../types';
 const { Option } = Select;
@@ -33,6 +33,7 @@ export const SearchPanel: FC<IProps> = ({
         </Form.Item>
         <Form.Item>
           <Select
+            defaultValue={''}
             value={param.personId}
             style={{ width: 120 }}
             onChange={(value) =>
@@ -48,6 +49,18 @@ export const SearchPanel: FC<IProps> = ({
               </Option>
             ))}
           </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            onClick={() =>
+              setParam({
+                name: '',
+                personId: '',
+              })
+            }
+          >
+            重置
+          </Button>
         </Form.Item>
       </Form>
     </>

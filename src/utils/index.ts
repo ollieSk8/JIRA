@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 //是否是真 0 值是真
 export const isFalsy = (value: unknown): boolean =>
   value === 0 ? false : !value;
+export const isVoid = (value: unknown): boolean =>
+  value === undefined || value === null || value === '';
+
 //清理对象上的空值
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key: string) => {
-    //@ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-      //@ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
