@@ -1,13 +1,23 @@
+import { useRequest } from 'ahooks';
 import { Form, Input } from 'antd';
-import { useAuth } from 'context/auth-context';
+import { AuthForm, useAuth } from 'context/auth-context';
 import { FC, ReactElement } from 'react';
 import { LongButton } from 'unauthenticated-app';
 
-interface IProps {}
-export const LoginScreen: FC<IProps> = (): ReactElement => {
+interface IProps {
+  onSetError: (error: Error) => void;
+}
+export const LoginScreen: FC<IProps> = ({ onSetError }): ReactElement => {
   const { login } = useAuth();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+  const { run, loading } = useRequest(login, {
+    manual: true,
+    throwOnError: true,
+    onError: (error: Error) => {
+      onSetError(error);
+    },
+  });
+  const handleSubmit = async (values: AuthForm) => {
+    await run(values);
   };
   return (
     <>
@@ -25,7 +35,7 @@ export const LoginScreen: FC<IProps> = (): ReactElement => {
           <Input.Password placeholder="请输入密码" id={'password'} />
         </Form.Item>
         <Form.Item>
-          <LongButton type="primary" htmlType="submit">
+          <LongButton loading={loading} type="primary" htmlType="submit">
             登录
           </LongButton>
         </Form.Item>

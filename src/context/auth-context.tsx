@@ -3,7 +3,10 @@ import * as auth from '../auth-provider';
 import { User } from 'types';
 import { http } from 'utils/http';
 import { useMount } from 'utils';
-interface AuthForm {
+import { useRequest } from 'ahooks';
+import { FullPageError, FullPageLoading } from 'components/lib';
+import { DevTools } from 'jira-dev-tool';
+export interface AuthForm {
   username: string;
   password: string;
 }
@@ -38,9 +41,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(user);
     });
   const logout = () => auth.logout().then(() => setUser(null));
-  useMount(() => {
-    bootstrapUser().then(setUser);
+  const { loading, run, error } = useRequest(bootstrapUser, {
+    manual: true,
+    onSuccess: (result) => {
+      if (result) {
+        setUser(result);
+      }
+    },
   });
+  useMount(() => {
+    run();
+  });
+  if (loading) {
+    return (
+      <>
+        <FullPageLoading></FullPageLoading>
+      </>
+    );
+  }
+  if (error) {
+    return (
+      <>
+        <DevTools />
+        <FullPageError errormsg={error}></FullPageError>
+      </>
+    );
+  }
   return (
     <AuthContext.Provider
       value={{ user, login, register, logout }}
