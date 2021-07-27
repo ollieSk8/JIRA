@@ -4,11 +4,12 @@ import { SearchPanel } from './search-panel';
 import { cleanObject } from '../../utils';
 import styled from '@emotion/styled';
 import { Typography } from 'antd';
-import { useRequest } from 'ahooks';
+import { useRequest, useTitle } from 'ahooks';
 const Container = styled.div`
   padding: 3.2rem;
 `;
 export const ProjectListScreen: FC = (): ReactElement => {
+  useTitle('项目列表', { restoreOnUnmount: true });
   const [param, setParam] = useState({
     name: '',
     personId: '',

@@ -1,6 +1,7 @@
 import { Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import { FC, ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { projects, User } from '../../types';
 interface IProps extends TableProps<projects> {
   user: User[];
@@ -13,7 +14,9 @@ export const List: FC<IProps> = ({ user, ...props }): ReactElement => {
       columns={[
         {
           title: '名称',
-          dataIndex: 'name',
+          render(value, project) {
+            return <Link to={project.id + ''}>{project.name}</Link>;
+          },
           sorter: (a, b) => {
             return a.name.localeCompare(b.name);
           },

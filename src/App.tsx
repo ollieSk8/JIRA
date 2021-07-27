@@ -4,6 +4,7 @@ import { AuthenticatedApp } from './authenticated-app';
 import { UnAuthenticatedApp } from './unauthenticated-app';
 import { ErrorBoundary } from 'react-error-boundary';
 import { FullPageErrorFallback } from 'components/lib';
+import './App.css';
 function App(): ReactElement {
   const { user } = useAuth();
   return (
